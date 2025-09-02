@@ -365,6 +365,10 @@ class StoryMenuState extends MusicBeatState
 		else
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 	}
+	public static function getCurWeek():Int
+{
+    return curWeek;
+}
 
 	var tweenDifficulty:FlxTween;
 
