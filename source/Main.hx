@@ -17,7 +17,6 @@ import lime.system.System as LimeSystem;
 import lime.app.Application;
 import states.TitleState;
 import states.backend.InitState;
-import states.backend.PassState;
 import mobile.backend.Data;
 import backend.extraKeys.ExtraKeysHandler;
 
