@@ -115,6 +115,9 @@ class FunkinLua
 		set('screenWidth', FlxG.width);
 		set('screenHeight', FlxG.height);
 
+		// PlayState week variables
+		set('curWeek', StoryMenuState.getCurWeek());
+
 		// PlayState variables
 		set('curSection', 0);
 		set('curBeat', 0);
