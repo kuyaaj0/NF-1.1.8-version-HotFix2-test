@@ -7,9 +7,26 @@ class MenuItem extends FlxSprite
 	public function new(x:Float, y:Float, weekName:String = '')
 	{
 		super(x, y);
-		loadGraphic(Paths.image('storymenu/' + weekName));
+
+		// Try loading atlas (PNG + XML)
+		var atlas = Paths.getSparrowAtlas('storymenu/' + weekName);
+		if (atlas != null)
+		{
+			frames = atlas;
+
+			// 👇 No hardcoded animation names.
+			// Just leave it to mods/custom code to call animation.play("whatever").
+			// If no animation is explicitly set, play the *first* one available.
+			if (animation.getNameList().length > 0)
+				animation.play(animation.getNameList()[0]); // plays first anim in XML
+		}
+		else
+		{
+			// fallback PNG (if no XML exists)
+			loadGraphic(Paths.image('storymenu/' + weekName));
+		}
+
 		antialiasing = ClientPrefs.data.antialiasing;
-		// trace('Test added: ' + WeekData.getWeekNumber(weekNum) + ' (' + weekNum + ')');
 	}
 
 	public var isFlashing(default, set):Bool = false;
@@ -31,10 +48,13 @@ class MenuItem extends FlxSprite
 		super.update(elapsed);
 
 		y = FlxMath.lerp((targetY * 120) + 480, y, Math.exp(-elapsed * 10.2));
+
 		if (isFlashing)
 		{
 			_flashingElapsed += elapsed;
-			color = (Math.floor(_flashingElapsed * FlxG.updateFramerate * flashes_ps) % 2 == 0) ? _flashColor : FlxColor.WHITE;
+			color = (Math.floor(_flashingElapsed * FlxG.updateFramerate * flashes_ps) % 2 == 0)
+				? _flashColor
+				: FlxColor.WHITE;
 		}
 	}
 }
