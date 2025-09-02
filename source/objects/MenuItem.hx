@@ -1,7 +1,5 @@
 package objects;
 
-import backend.ClientPrefs;
-
 class MenuItem extends FlxSprite
 {
 	public var targetY:Float = 0;
