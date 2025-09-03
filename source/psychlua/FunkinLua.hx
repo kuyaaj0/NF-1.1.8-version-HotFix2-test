@@ -40,6 +40,7 @@ class FunkinLua
 	public var lua:State = null;
 	public var camTarget:FlxCamera;
 	public var scriptName:String = '';
+	public static var blockNextState:Bool = false;
 	public var modFolder:String = null;
 	public var closed:Bool = false;
 
