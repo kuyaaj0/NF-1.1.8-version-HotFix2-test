@@ -321,6 +321,9 @@ class MainMenuState extends MusicBeatState
 		add(substate);
 		
 		super.create();
+		#if LUA_ALLOWED
+		FunkinLua.call('onMainMenuCreate', []);
+		#end
 	}
 
 	function openSub():Void{
@@ -502,7 +505,10 @@ class MainMenuState extends MusicBeatState
 			spr.centerOrigin();
 		});
 
-		super.update(elapsed);
+		super.update(elapsed)
+		#if LUA_ALLOWED
+		FunkinLua.call('onMainMenuUpdate', [elapsed]);
+        #end
 	}
 
 	function selectSomething()
