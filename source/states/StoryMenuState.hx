@@ -189,6 +189,9 @@ class StoryMenuState extends MusicBeatState
 		addVirtualPad(LEFT_FULL, A_B_X_Y);
 
 		super.create();
+		#if LUA_ALLOWED
+		FunkinLua.call('onStoryMenuCreate', []);
+		#end
 	}
 
 	override function closeSubState()
@@ -278,6 +281,9 @@ class StoryMenuState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+		#if LUA_ALLOWED
+		FunkinLua.call('onStoryMenuUpdate', [elapsed]);
+		#end
 
 		grpLocks.forEach(function(lock:FlxSprite)
 		{
