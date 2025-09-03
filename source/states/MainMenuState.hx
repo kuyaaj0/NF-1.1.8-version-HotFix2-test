@@ -568,7 +568,17 @@ class MainMenuState extends MusicBeatState
 				switch (daChoice)
 				{
 					case 'story_mode':
-						MusicBeatState.switchState(new StoryMenuState());
+					#if LUA_ALLOWED
+					FunkinLua.blockNextState = false; // reset blocker
+					FunkinLua.call('onStoryModeSelected', []);
+					if (!FunkinLua.blockNextState) {
+					// if Lua didn’t override, go to StoryMenu normally
+					MusicBeatState.switchState(new StoryMenuState());
+				}
+					#else
+						
+					MusicBeatState.switchState(new StoryMenuState());
+					#end
 					case 'freeplay':
 						if (!ClientPrefs.data.freeplayOld)
 							MusicBeatState.switchState(new FreeplayState());
