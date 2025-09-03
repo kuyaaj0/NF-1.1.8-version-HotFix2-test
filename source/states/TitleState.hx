@@ -224,6 +224,11 @@ class TitleState extends MusicBeatState
 
 		add(gfDance);
 		add(logoBl);
+
+		#if LUA_ALLOWED
+		FunkinLua.call('onTitleGfCreate', []);
+		#end
+		
 		if(swagShader != null)
 		{
 			gfDance.shader = swagShader.shader;
