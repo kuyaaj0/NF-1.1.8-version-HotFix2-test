@@ -326,11 +326,8 @@ class MainMenuState extends MusicBeatState
 		
 		super.create();
 		#if LUA_ALLOWED
-    for (script in luaArray)
-    {
-        script.call('onMainMenuCreate', []);
-    }
-    #end
+		callOnLuas("onMainMenuCreate", []);
+		#end
 	}
 
 	function openSub():Void{
@@ -514,11 +511,8 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-    for (script in luaArray)
-    {
-        script.call('onMainMenuUpdate', [elapsed]);
-    }
-    #end
+		callOnLuas("onMainMenuUpdate", [elapsed]);
+#end
 	}
 
 	function selectSomething()
