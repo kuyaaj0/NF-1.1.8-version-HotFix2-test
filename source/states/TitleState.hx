@@ -74,16 +74,16 @@ class TitleState extends MusicBeatState
 	public static var updateVersion:String = '';
 
 	public static var bpm:Float = 0;
-
-	inline function callOnLuas(func:String, ?args:Array<Dynamic>) {
-    FunkinLua.callOnLuas(func, args);
-	}
 	
 	override public function create():Void
 	{
 		Paths.clearStoredMemory();
 		super.create();
 		Paths.clearUnusedMemory();
+
+		#if LUA_ALLOWED
+		FunkinLua.callOnAllScripts("onTitleCreate", []);
+		#end
 
 		#if LUA_ALLOWED
 		Mods.pushGlobalMods();
@@ -234,11 +234,7 @@ class TitleState extends MusicBeatState
 		add(logoBl);
 
 		#if LUA_ALLOWED
-		if (luaArray != null) {
-			for (script in luaArray) {
-				script.call("onTitleGfCreate", []);
-				}
-			}
+		FunkinLua.callOnAllScripts("onTitleGfCreate", []);
 		#end
 		
 		if(swagShader != null)
@@ -477,11 +473,7 @@ class TitleState extends MusicBeatState
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-		if (luaArray != null) {
-			for (script in luaArray) {
-				script.call("onTitleGfUpdate", [elapsed]);
-				}
-			}
+		FunkinLua.callOnAllScripts("onTitleUpdate", [elapsed]);
 		#end
 	}
 
