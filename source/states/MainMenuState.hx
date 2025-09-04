@@ -77,9 +77,13 @@ class MainMenuState extends MusicBeatState
 
 	public static var Mainbpm:Float = 0;
 	public static var bpm:Float = 0;
-
+	
 	var StatusIcon:FlxSprite;
 	var ActionStatus:Dynamic;
+
+	inline function callOnLuas(func:String, ?args:Array<Dynamic>) {
+    FunkinLua.callOnLuas(func, args);
+	}
 
 	override function create()
 	{
