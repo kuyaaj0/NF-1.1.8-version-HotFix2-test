@@ -22,6 +22,10 @@ import states.StoryMenuState;
 import states.OutdatedState;
 import states.MainMenuState;
 
+#if LUA_ALLOWED
+import psychlua.FunkinLua;
+#end
+
 typedef TitleData =
 {
 	titlex:Float,
