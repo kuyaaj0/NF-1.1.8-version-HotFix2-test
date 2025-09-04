@@ -45,6 +45,10 @@ class StoryMenuState extends MusicBeatState
 
 	var loadedWeeks:Array<WeekData> = [];
 
+	inline function callOnLuas(func:String, ?args:Array<Dynamic>) {
+    FunkinLua.callOnLuas(func, args);
+	}
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
