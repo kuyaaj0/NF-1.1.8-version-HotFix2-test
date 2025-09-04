@@ -230,11 +230,8 @@ class TitleState extends MusicBeatState
 		add(logoBl);
 
 		#if LUA_ALLOWED
-for (script in luaArray)
-{
-    script.call('onTitleGfCreate', []);
-}
-#end
+		callOnLuas("onTitleGfCreate", []);
+		#end
 		
 		if(swagShader != null)
 		{
@@ -472,11 +469,8 @@ for (script in luaArray)
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-    for (script in luaArray)
-    {
-        script.call('onTitleUpdate', [elapsed]);
-    }
-    #end
+		callOnLuas("onTitleGfUpdate", [elapsed]);
+		#end
 	}
 
 	function createCoolText(textArray:Array<String>, ?offset:Float = 0)
