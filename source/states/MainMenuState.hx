@@ -326,7 +326,7 @@ class MainMenuState extends MusicBeatState
 		
 		super.create();
 		#if LUA_ALLOWED
-		callOnLuas("onMainMenuCreate", []);
+		FunkinLua.callOnLuas("onMainMenuCreate", []);
 		#end
 	}
 
@@ -511,7 +511,7 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-		callOnLuas("onMainMenuUpdate", [elapsed]);
+		FunkinLua.callOnLuas("onMainMenuUpdate", [elapsed]);
 #end
 	}
 
@@ -574,7 +574,7 @@ class MainMenuState extends MusicBeatState
 					case 'story_mode':
 					#if LUA_ALLOWED
 					FunkinLua.blockNextState = false; // reset blocker
-					callonLuas('onStoryModeSelected', []);
+					Funkinlua.callonLuas('onStoryModeSelected', []);
 					if (!FunkinLua.blockNextState) {
 					// if Lua didn’t override, go to StoryMenu normally
 					MusicBeatState.switchState(new StoryMenuState());
