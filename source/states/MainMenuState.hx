@@ -574,7 +574,7 @@ class MainMenuState extends MusicBeatState
 					case 'story_mode':
 					#if LUA_ALLOWED
 					FunkinLua.blockNextState = false; // reset blocker
-					Funkinlua.callonLuas('onStoryModeSelected', []);
+					Funkinlua.callOnLuas('onStoryModeSelected', []);
 					if (!FunkinLua.blockNextState) {
 					// if Lua didn’t override, go to StoryMenu normally
 					MusicBeatState.switchState(new StoryMenuState());
