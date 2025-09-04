@@ -234,7 +234,11 @@ class TitleState extends MusicBeatState
 		add(logoBl);
 
 		#if LUA_ALLOWED
-		Funkinlua.callOnLuas("onTitleGfCreate", []);
+		if (luaArray != null) {
+			for (script in luaArray) {
+				script.call("onTitleGfCreate", []);
+				}
+			}
 		#end
 		
 		if(swagShader != null)
@@ -473,7 +477,11 @@ class TitleState extends MusicBeatState
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-		Funkinlua.callOnLuas("onTitleGfUpdate", [elapsed]);
+		if (luaArray != null) {
+			for (script in luaArray) {
+				script.call("onTitleGfUpdate", [elapsed]);
+				}
+			}
 		#end
 	}
 
