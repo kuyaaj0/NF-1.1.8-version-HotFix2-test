@@ -1992,6 +1992,21 @@ class FunkinLua
 		}
 		return (result == 'true');
 	}
+	
+	// 🔹 Add this near the bottom of FunkinLua.hx
+	public static function callOnAllScripts(func:String, args:Array<Dynamic> = null):Dynamic {
+		if (args == null) args = [];
+
+		// Check if we are in a state that actually has Lua scripts
+		if (PlayState.instance == null || PlayState.instance.luaArray == null) return null;
+		
+		var ret:Dynamic = null;
+		for (script in PlayState.instance.luaArray) {
+			ret = script.call(func, args);
+			if (ret == true) return true; // stop if Lua function blocks
+		}
+		return ret;
+	}
 
 	function findScript(scriptFile:String, ext:String = '.lua')
 	{
