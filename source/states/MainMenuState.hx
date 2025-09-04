@@ -81,10 +81,6 @@ class MainMenuState extends MusicBeatState
 	var StatusIcon:FlxSprite;
 	var ActionStatus:Dynamic;
 
-	inline function callOnLuas(func:String, ?args:Array<Dynamic>) {
-    FunkinLua.callOnLuas(func, args);
-	}
-
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -330,11 +326,7 @@ class MainMenuState extends MusicBeatState
 		
 		super.create();
 		#if LUA_ALLOWED
-		if (luaArray != null) {
-			for (script in luaArray) {
-				script.call("onMainMenuCreate", []);
-				}
-			}
+		FunkinLua.callOnAllScripts("onMainMenuCreate", []);
 		#end
 	}
 
@@ -519,11 +511,7 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-		if (luaArray != null) {
-			for (script in luaArray) {
-				script.call("onMainMenuUpdate", [elapsed]);
-			}
-		}
+		FunkinLua.callOnAllScripts("onMainMenuUpdate", [elapsed]);
 #end
 	}
 
@@ -585,14 +573,9 @@ class MainMenuState extends MusicBeatState
 				{
 					case 'story_mode':
 						#if LUA_ALLOWED
-						FunkinLua.blockNextState = false; // reset blocker
-						if (luaArray != null) {
-						for (script in luaArray) {
-						script.call('onStoryModeSelected', []);
-				}
-				}
+						FunkinLua.blockNextState = false; 
+						FunkinLua.callOnAllScripts("onStoryModeSelected", []);
 						if (!FunkinLua.blockNextState) {
-						// If Lua didn’t override, go to StoryMenu normally
 						MusicBeatState.switchState(new StoryMenuState());
 				}
 						#else
