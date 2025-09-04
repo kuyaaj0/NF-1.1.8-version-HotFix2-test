@@ -194,11 +194,8 @@ class StoryMenuState extends MusicBeatState
 
 		super.create();
 		#if LUA_ALLOWED
-    for (script in luaArray)
-    {
-        script.call('onStoryMenuCreate', []);
-    }
-    #end
+		callOnLuas("onStoryMenuCreate", []);
+		#end
 	}
 
 	override function closeSubState()
@@ -289,11 +286,8 @@ class StoryMenuState extends MusicBeatState
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-    for (script in luaArray)
-    {
-        script.call('onStoryMenuUpdate', [elapsed]);
-    }
-    #end
+		callOnLuas("onMainMenuUpdate", [elapsed]);
+		#end
 
 		grpLocks.forEach(function(lock:FlxSprite)
 		{
