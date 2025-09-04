@@ -330,7 +330,11 @@ class MainMenuState extends MusicBeatState
 		
 		super.create();
 		#if LUA_ALLOWED
-		FunkinLua.callOnLuas("onMainMenuCreate", []);
+		if (luaArray != null) {
+			for (script in luaArray) {
+				script.call("onMainMenuCreate", []);
+				}
+			}
 		#end
 	}
 
@@ -515,7 +519,11 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-		FunkinLua.callOnLuas("onMainMenuUpdate", [elapsed]);
+		if (luaArray != null) {
+			for (script in luaArray) {
+				script.call("onMainMenuUpdate", [elapsed]);
+			}
+		}
 #end
 	}
 
