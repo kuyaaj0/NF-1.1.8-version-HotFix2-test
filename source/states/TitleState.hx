@@ -230,8 +230,11 @@ class TitleState extends MusicBeatState
 		add(logoBl);
 
 		#if LUA_ALLOWED
-		FunkinLua.call('onTitleGfCreate', []);
-		#end
+for (script in luaArray)
+{
+    script.call('onTitleGfCreate', []);
+}
+#end
 		
 		if(swagShader != null)
 		{
@@ -468,6 +471,12 @@ class TitleState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+		#if LUA_ALLOWED
+    for (script in luaArray)
+    {
+        script.call('onTitleUpdate', [elapsed]);
+    }
+    #end
 	}
 
 	function createCoolText(textArray:Array<String>, ?offset:Float = 0)
