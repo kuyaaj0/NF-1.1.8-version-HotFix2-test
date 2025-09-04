@@ -505,7 +505,7 @@ class MainMenuState extends MusicBeatState
 			spr.centerOrigin();
 		});
 
-		super.update(elapsed)
+		super.update(elapsed);
 		#if LUA_ALLOWED
 		FunkinLua.call('onMainMenuUpdate', [elapsed]);
         #end
