@@ -75,6 +75,10 @@ class TitleState extends MusicBeatState
 
 	public static var bpm:Float = 0;
 
+	inline function callOnLuas(func:String, ?args:Array<Dynamic>) {
+    FunkinLua.callOnLuas(func, args);
+	}
+	
 	override public function create():Void
 	{
 		Paths.clearStoredMemory();
