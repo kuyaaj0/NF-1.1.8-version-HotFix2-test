@@ -230,7 +230,7 @@ class TitleState extends MusicBeatState
 		add(logoBl);
 
 		#if LUA_ALLOWED
-		callOnLuas("onTitleGfCreate", []);
+		Funkinlua.callOnLuas("onTitleGfCreate", []);
 		#end
 		
 		if(swagShader != null)
@@ -469,7 +469,7 @@ class TitleState extends MusicBeatState
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-		callOnLuas("onTitleGfUpdate", [elapsed]);
+		Funkinlua.callOnLuas("onTitleGfUpdate", [elapsed]);
 		#end
 	}
 
