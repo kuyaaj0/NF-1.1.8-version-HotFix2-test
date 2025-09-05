@@ -2040,7 +2040,6 @@ class FunkinLua
         trace('[Lua] loadScriptsFrom error: ' + Std.string(e));
     }
 }
-#end
 
 	function findScript(scriptFile:String, ext:String = '.lua')
 	{
