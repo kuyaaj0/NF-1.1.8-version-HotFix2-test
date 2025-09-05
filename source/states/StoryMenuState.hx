@@ -194,6 +194,7 @@ class StoryMenuState extends MusicBeatState
 
 		super.create();
 		#if LUA_ALLOWED
+		FunkinLua.luaArray = []; // clear old scripts
 		FunkinLua.loadScriptsFrom("scripts/storymenu");
 		FunkinLua.callOnAllScripts("onStoryMenuCreate", []);
 		#end
