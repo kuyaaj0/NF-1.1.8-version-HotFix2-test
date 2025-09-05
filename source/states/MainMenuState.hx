@@ -326,10 +326,10 @@ class MainMenuState extends MusicBeatState
 		
 		super.create();
 		#if LUA_ALLOWED
-			FunkinLua.luaArray = []; // clear any leftover script
+		FunkinLua.luaArray = []; // clear any leftover script
 		FunkinLua.loadScriptsFrom("scripts/mainmenu");
-FunkinLua.callOnAllScripts("onMainMenuCreate", []);
-#end
+		FunkinLua.callOnAllScripts("onMainMenuCreate", []);
+		#end
 	}
 
 	function openSub():Void{
