@@ -2009,26 +2009,38 @@ class FunkinLua
 		return ret;
 	}
 
-	public static function loadStateScripts(state:String):Void {
-    var folder:String = 'mods/scripts/' + state + '/';
+	// --- load every .lua inside a mods subfolder (e.g. "scripts/title") ---
+	public static function loadScriptsFrom(folder:String):Void {
+    try {
+        var folderStr = if (folder.endsWith("/")) folder else folder + "/";
+        var modFolderPath = Paths.modFolders(folderStr);       // mods/... path
+        var sharedFolderPath = Paths.getSharedPath(folderStr); // shared/... fallback
 
-    if (!sys.FileSystem.exists(folder)) {
-        return; // no folder, nothing to load
-    }
+        var dir:String = null;
+        if (FileSystem.exists(modFolderPath)) dir = modFolderPath;
+        else if (FileSystem.exists(sharedFolderPath)) dir = sharedFolderPath;
+        else return; // nothing to load
 
-    for (file in sys.FileSystem.readDirectory(folder)) {
-        if (file.endsWith('.lua')) {
-            var path = folder + file;
-            trace('[Lua] Loading state script: ' + path);
+        // read directory when sys is available
+        #if sys
+        var files = sys.FileSystem.readDirectory(dir);
+        #else
+        var files = [];
+        #end
 
-            // Create a new FunkinLua instance so it runs
-            var lua = new FunkinLua(path);
-            if (luaArray != null) {
+        for (file in files) {
+            if (file.toLowerCase().endsWith(".lua")) {
+                var tryPath = (if (dir.endsWith("/")) dir else dir + "/") + file;
+                trace('[Lua] Loading state script: ' + tryPath);
+                var lua = new FunkinLua(tryPath);
                 luaArray.push(lua);
             }
         }
+    } catch (e:Dynamic) {
+        trace('[Lua] loadScriptsFrom error: ' + Std.string(e));
     }
-	}
+}
+#end
 
 	function findScript(scriptFile:String, ext:String = '.lua')
 	{
