@@ -315,7 +315,7 @@ class MainMenuState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		#else
 		FlxG.mouse.visible = false;
-		#endFunkinLua.luaArray
+		#end
 
 		addVirtualPad(MainMenuStateC, A_B_E);
 		virtualPad.cameras = [camHUD];
