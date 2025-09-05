@@ -326,6 +326,7 @@ class MainMenuState extends MusicBeatState
 		
 		super.create();
 		#if LUA_ALLOWED
+		FunkinLua.loadScriptsFrom("scripts/mainmenu");
 		FunkinLua.callOnAllScripts("onMainMenuCreate", []);
 		#end
 	}
