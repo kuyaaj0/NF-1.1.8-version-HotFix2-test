@@ -14,6 +14,8 @@ import backend.diffCalc.DiffCalc;
 import backend.Replay;
 import backend.diffCalc.StarRating;
 
+import backend.state.freeplayState.*;
+//import backend.state.freeplayState.PreThreadLoad.DataPrepare;
 import objects.state.freeplayState.detail.*;
 import objects.state.freeplayState.down.*;
 import objects.state.freeplayState.others.*;
@@ -78,9 +80,13 @@ class FreeplayState extends MusicBeatState
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
+	//public var prepareLoad:PreThreadLoad;
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	var historyGroup:Array<HistoryRect> = [];
 
-	//////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	var funcData:Array<String> = ['option', 'mod', 'changer', 'editor', 'reset', 'random'];
 	var funcColors:Array<FlxColor> = [0x63d6ff, 0xd1fc52, 0xff354e, 0xff617e, 0xfd6dff, 0x6dff6d];
@@ -247,6 +253,22 @@ class FreeplayState extends MusicBeatState
 
 		//////////////////////////////////////////////////////////////////////////////////////////
 
+		/*
+		var songRectload:Array<DataPrepare> = [];
+
+		for (time in 0...Math.ceil((Math.ceil(FlxG.height / SongRect.fixHeight * 0.95) + 2) / songsData.length)){
+			for (i in 0...songsData.length)
+			{
+				var data = songsData[i];
+				var rectGrp = {name: data.songName, color: data.color, icon: data.songCharacter, modPath: songsData[i].folder};
+				songRectload.push(rectGrp);
+			}
+		}
+
+		prepareLoad = new PreThreadLoad();
+		prepareLoad.start(songRectload);
+		*/
+
 		for (time in 0...Math.ceil((Math.ceil(FlxG.height / SongRect.fixHeight * 0.95) + 2) / songsData.length)){
 			for (i in 0...songsData.length)
 			{
@@ -272,7 +294,7 @@ class FreeplayState extends MusicBeatState
 		songMoveEvent();
 		songsScroll.moveElementToPosition();
 
-		//////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		selectedBG = new FlxSprite(FlxG.width, 0).loadGraphic(Paths.image(FreeplayState.filePath + 'selectBG'));
         selectedBG.antialiasing = ClientPrefs.data.antialiasing;
@@ -291,7 +313,7 @@ class FreeplayState extends MusicBeatState
 
 		collectionButton = new CollectionButton(977, 105);
 		add(collectionButton);
-		
+
 		//////////////////////////////////////////////////////////////////////////////////////////
 
 		downBG = new Rect(0, FlxG.height - 49, FlxG.width, 51, 0, 0); //嗯卧槽怎么全屏会漏
@@ -300,7 +322,6 @@ class FreeplayState extends MusicBeatState
 
 		backRect = new BackButton(0, FlxG.height - 65, 195, 65);
 		add(backRect);
-
 
 		for (data in 0...funcData.length)
 		{
@@ -311,6 +332,10 @@ class FreeplayState extends MusicBeatState
 
 		playButton = new PlayButton(1100, 560);
 		add(playButton);
+
+		//////////////////////////////////////////////////////////////////////////////////////////
+
+		
 
 		//////////////////////////////////////////////////////////////////////////////////////////
 
@@ -339,10 +364,10 @@ class FreeplayState extends MusicBeatState
 		
 	}
 
+	public var allowUpdate:Bool = false;
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-
 	}
 }
 
