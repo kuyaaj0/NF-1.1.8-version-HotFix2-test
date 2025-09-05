@@ -41,7 +41,7 @@ class FunkinLua
 	public var camTarget:FlxCamera;
 	public var scriptName:String = '';
 	public static var blockNextState:Bool = false;
-	public var modFolder:String = null;
+	public static var luaArray:Array<FunkinLua> = []; = null;
 	public var closed:Bool = false;
 
 	#if HSCRIPT_ALLOWED
