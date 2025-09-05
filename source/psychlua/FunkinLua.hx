@@ -2008,6 +2008,27 @@ class FunkinLua
 		return ret;
 	}
 
+	public static function loadStateScripts(state:String):Void {
+    var folder:String = 'mods/scripts/' + state + '/';
+
+    if (!sys.FileSystem.exists(folder)) {
+        return; // no folder, nothing to load
+    }
+
+    for (file in sys.FileSystem.readDirectory(folder)) {
+        if (file.endsWith('.lua')) {
+            var path = folder + file;
+            trace('[Lua] Loading state script: ' + path);
+
+            // Create a new FunkinLua instance so it runs
+            var lua = new FunkinLua(path);
+            if (luaArray != null) {
+                luaArray.push(lua);
+            }
+        }
+    }
+	}
+
 	function findScript(scriptFile:String, ext:String = '.lua')
 	{
 		if (!scriptFile.endsWith(ext))
