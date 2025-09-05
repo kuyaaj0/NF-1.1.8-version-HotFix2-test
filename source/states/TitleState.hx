@@ -82,6 +82,7 @@ class TitleState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		#if LUA_ALLOWED
+		FunkinLua.luaArray = [];
 		FunkinLua.loadScriptsFrom("scripts/title");
 		FunkinLua.callOnAllScripts("onTitleCreate", []);
 		#end
