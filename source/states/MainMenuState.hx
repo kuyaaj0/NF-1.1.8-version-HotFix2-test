@@ -276,7 +276,7 @@ class MainMenuState extends MusicBeatState
 					else if (ActionStatus.conclusion == 'failure')
 					{
 						StatusIcon.animation.play('failure');
-					}
+					} 
 				}
 
 				StatusIcon.scale.x = StatusIcon.scale.y = 0.5;
@@ -315,7 +315,7 @@ class MainMenuState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		#else
 		FlxG.mouse.visible = false;
-		#end
+		#endFunkinLua.luaArray
 
 		addVirtualPad(MainMenuStateC, A_B_E);
 		virtualPad.cameras = [camHUD];
@@ -326,9 +326,10 @@ class MainMenuState extends MusicBeatState
 		
 		super.create();
 		#if LUA_ALLOWED
+			FunkinLua.luaArray = []; // clear any leftover script
 		FunkinLua.loadScriptsFrom("scripts/mainmenu");
-		FunkinLua.callOnAllScripts("onMainMenuCreate", []);
-		#end
+FunkinLua.callOnAllScripts("onMainMenuCreate", []);
+#end
 	}
 
 	function openSub():Void{
