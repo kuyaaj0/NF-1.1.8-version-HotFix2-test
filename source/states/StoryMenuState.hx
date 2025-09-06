@@ -47,6 +47,7 @@ class StoryMenuState extends MusicBeatState
 
 	override function create()
 	{
+		super.create();
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
@@ -192,7 +193,6 @@ class StoryMenuState extends MusicBeatState
 
 		addVirtualPad(LEFT_FULL, A_B_X_Y);
 
-		super.create();
 		#if LUA_ALLOWED
 		FunkinLua.luaArray = []; // clear old scripts
 		FunkinLua.loadScriptsFrom("scripts/storymenu");
