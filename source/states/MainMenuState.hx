@@ -83,6 +83,8 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		super.create();
+		
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
@@ -324,7 +326,6 @@ class MainMenuState extends MusicBeatState
 		var substate = new flixel.addons.ui.FlxUIButton(buttonX,10,"hello",openSub);
 		add(substate);
 		
-		super.create();
 		#if LUA_ALLOWED
 		FunkinLua.luaArray = []; // clear any leftover script
 		FunkinLua.loadScriptsFrom("scripts/mainmenu");
