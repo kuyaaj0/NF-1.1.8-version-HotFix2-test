@@ -26,6 +26,10 @@ class StoryMenuState extends MusicBeatState
 
 	var curDifficulty:Int = 1;
 
+	#if LUA_ALLOWED
+	public var luaArray:Array<FunkinLua> = [];
+	#end
+
 	var txtWeekTitle:FlxText;
 	var bgSprite:FlxSprite;
 
