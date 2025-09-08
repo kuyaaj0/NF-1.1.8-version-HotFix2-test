@@ -198,9 +198,9 @@ class StoryMenuState extends MusicBeatState
 		addVirtualPad(LEFT_FULL, A_B_X_Y);
 
 		#if LUA_ALLOWED
-		FunkinLua.luaArray = []; // clear old scripts
-		FunkinLua.loadScriptsFrom("scripts/storymenu");
-		FunkinLua.callOnAllScripts("onStoryMenuCreate", []);
+		FunkinLua.loadScriptsFrom("scripts/storymenu", luaArray);
+		for (script in luaArray)
+		script.call("onStoryMenuCreate", []);
 		#end
 	}
 
@@ -292,7 +292,8 @@ class StoryMenuState extends MusicBeatState
 
 		super.update(elapsed);
 		#if LUA_ALLOWED
-		FunkinLua.callOnAllScripts("onStoryMenuUpdate", [elapsed]);
+		for (script in luaArray)
+		script.call("onStoryMenuUpdate", [elapsed]);
 		#end
 
 		grpLocks.forEach(function(lock:FlxSprite)
