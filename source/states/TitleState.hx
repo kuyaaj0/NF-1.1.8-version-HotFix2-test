@@ -44,6 +44,10 @@ class TitleState extends MusicBeatState
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
 
+	#if LUA_ALLOWED
+	public var luaArray:Array<FunkinLua> = [];
+	#end
+	
 	public static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
@@ -82,9 +86,8 @@ class TitleState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		#if LUA_ALLOWED
-		FunkinLua.luaArray = [];
-		FunkinLua.loadScriptsFrom("scripts/title");
-		FunkinLua.callOnAllScripts("onTitleCreate", []);
+		for (script in luaArray)
+		script.call("ontitleCreate", [elapsed]);
 		#end
 
 		#if LUA_ALLOWED
@@ -236,7 +239,8 @@ class TitleState extends MusicBeatState
 		add(logoBl);
 
 		#if LUA_ALLOWED
-		FunkinLua.callOnAllScripts("onTitleGfCreate", []);
+		for (script in luaArray)
+		script.call("onTitleGfCreate", [gfDance]);
 		#end
 		
 		if(swagShader != null)
@@ -473,9 +477,10 @@ class TitleState extends MusicBeatState
 			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
 		}
 
-		super.update(elapsed);
+		super.update(elapsed)
 		#if LUA_ALLOWED
-		FunkinLua.callOnAllScripts("onTitleUpdate", [elapsed]);
+		for (script in luaArray)
+		script.call("onTitleUpdate", [elapsed]);
 		#end
 	}
 
