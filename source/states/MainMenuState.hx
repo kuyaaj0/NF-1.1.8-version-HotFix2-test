@@ -33,6 +33,10 @@ class MainMenuState extends MusicBeatState
 	public static var curSelected:Int = 0;
 	public static var saveCurSelected:Int = 0;
 
+	#if LUA_ALLOWED
+	public var luaArray:Array<FunkinLua> = [];
+	#end
+
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
 	public var camGame:FlxCamera;
@@ -327,9 +331,9 @@ class MainMenuState extends MusicBeatState
 		add(substate);
 		
 		#if LUA_ALLOWED
-		FunkinLua.luaArray = []; // clear any leftover script
-		FunkinLua.loadScriptsFrom("scripts/mainmenu");
-		FunkinLua.callOnAllScripts("onMainMenuCreate", []);
+		FunkinLua.loadScriptsFrom("scripts/mainmenu", luaArray);
+		for (script in luaArray)
+		script.call("onMainMenuCreate", []);
 		#end
 	}
 
@@ -512,10 +516,11 @@ class MainMenuState extends MusicBeatState
 			spr.centerOrigin();
 		});
 
-		super.update(elapsed);
+        super.update(elapsed);
 		#if LUA_ALLOWED
-		FunkinLua.callOnAllScripts("onMainMenuUpdate", [elapsed]);
-#end
+		for (script in luaArray)
+		script.call("onMainMenuUpdate", [elapsed]);
+        #end
 	}
 
 	function selectSomething()
