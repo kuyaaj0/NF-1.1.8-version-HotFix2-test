@@ -477,7 +477,7 @@ class TitleState extends MusicBeatState
 			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
 		}
 
-		super.update(elapsed)
+		super.update(elapsed);
 		#if LUA_ALLOWED
 		for (script in luaArray)
 		script.call("onTitleUpdate", [elapsed]);
