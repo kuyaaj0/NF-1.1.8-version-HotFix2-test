@@ -58,7 +58,7 @@ import crowplexus.iris.Iris;
 import crowplexus.hscript.Expr.Error as IrisError;
 import crowplexus.hscript.Printer;
 #end
-//import modchart.Manager;
+import modchart.Manager;
 
 @:allow(backend.Replay)
 /**
@@ -321,8 +321,6 @@ class PlayState extends MusicBeatState
 	public var luaVirtualPad:FlxVirtualPad;
 
 	var diffBotplay:Bool;
-
-	//public var modchart:Manager;
 
 	public function new()
 	{
@@ -1358,7 +1356,7 @@ class PlayState extends MusicBeatState
 		insert(members.indexOf(dadGroup), obj);
 	}
 
-	/*
+	
 	public function addManager(obj:Manager)
 	{
 		if (obj.playfields == null || obj.playfields.length == 0)
@@ -1366,7 +1364,6 @@ class PlayState extends MusicBeatState
 
 		add(obj);
 	}
-	*/
 
 	public function clearNotesBefore(time:Float)
 	{
