@@ -87,7 +87,7 @@ class TitleState extends MusicBeatState
 
 		#if LUA_ALLOWED
 		for (script in luaArray)
-		script.call("ontitleCreate", [elapsed]);
+		script.call("onTitleCreate", []);
 		#end
 
 		#if LUA_ALLOWED
