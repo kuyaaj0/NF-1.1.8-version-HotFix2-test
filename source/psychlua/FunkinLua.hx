@@ -1992,6 +1992,38 @@ class FunkinLua
 		}
 		return (result == 'true');
 	}
+
+	#if LUA_ALLOWED
+public static function findScript(scriptFile:String, ext:String = ".lua"):String {
+	try {
+		// ensure extension
+		if (!scriptFile.endsWith(ext)) scriptFile += ext;
+
+		// check shared/preload path first
+		var preloadPath:String = Paths.getSharedPath(scriptFile);
+
+		#if MODS_ALLOWED
+		// check mods path (handles mods/ folder resolution)
+		var modPath:String = Paths.modFolders(scriptFile);
+
+		// If an exact file path exists (rare), return it
+		if (FileSystem.exists(scriptFile)) return scriptFile;
+		// If a file exists in mods folder, return that
+		if (FileSystem.exists(modPath)) return modPath;
+
+		// fallback to preload/shared path if exists
+		if (FileSystem.exists(preloadPath)) return preloadPath;
+		#else
+		// If mods are not allowed, check assets/preload
+		if (Assets.exists(preloadPath)) return preloadPath;
+		#end
+
+	} catch (e:Dynamic) {
+		trace('[Lua] findScript error: ' + Std.string(e));
+	}
+	return null;
+}
+#end
 	
 	// 🔹 Add this near the bottom of FunkinLua.hx
 	public static function callOnAllScripts(func:String, args:Array<Dynamic> = null):Dynamic {
