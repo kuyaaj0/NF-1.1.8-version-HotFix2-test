@@ -41,7 +41,6 @@ class FunkinLua
 	public var camTarget:FlxCamera;
 	public var scriptName:String = '';
 	public static var blockNextState:Bool = false;
-	public static var luaArray:Array<FunkinLua> = [];
 	public var modFolder:String = null;
 	public var closed:Bool = false;
 
@@ -2009,8 +2008,10 @@ class FunkinLua
 		return ret;
 	}
 
-	// --- load every .lua inside a mods subfolder (e.g. "scripts/title") ---
-	public static function loadScriptsFrom(folder:String):Void {
+	#if LUA_ALLOWED
+public static var luaArray:Array<FunkinLua> = [];
+
+public static function loadScriptsFrom(folder:String, outArray:Array<FunkinLua> = null):Void {
     try {
         var folderStr = if (folder.endsWith("/")) folder else folder + "/";
         var modFolderPath = Paths.modFolders(folderStr);       // mods/... path
@@ -2021,11 +2022,11 @@ class FunkinLua
         else if (FileSystem.exists(sharedFolderPath)) dir = sharedFolderPath;
         else return; // nothing to load
 
-        // read directory when sys is available
+        var files:Array<String>;
         #if sys
-        var files = sys.FileSystem.readDirectory(dir);
+        files = sys.FileSystem.readDirectory(dir);
         #else
-        var files = [];
+        files = [];
         #end
 
         for (file in files) {
@@ -2033,35 +2034,15 @@ class FunkinLua
                 var tryPath = (if (dir.endsWith("/")) dir else dir + "/") + file;
                 trace('[Lua] Loading state script: ' + tryPath);
                 var lua = new FunkinLua(tryPath);
-                luaArray.push(lua);
+                if (outArray != null) outArray.push(lua);
+                else luaArray.push(lua);
             }
         }
     } catch (e:Dynamic) {
         trace('[Lua] loadScriptsFrom error: ' + Std.string(e));
     }
 }
-
-	function findScript(scriptFile:String, ext:String = '.lua')
-	{
-		if (!scriptFile.endsWith(ext))
-			scriptFile += ext;
-		var preloadPath:String = Paths.getSharedPath(scriptFile);
-		#if MODS_ALLOWED
-		var path:String = Paths.modFolders(scriptFile);
-		if (FileSystem.exists(scriptFile))
-			return scriptFile;
-		else if (FileSystem.exists(path))
-			return path;
-
-		if (FileSystem.exists(preloadPath))
-		#else
-		if (Assets.exists(preloadPath))
-		#end
-		{
-			return preloadPath;
-		}
-		return null;
-	}
+#end
 
 	public function getErrorMessage(status:Int):String
 	{
