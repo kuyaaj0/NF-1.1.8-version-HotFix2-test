@@ -2077,11 +2077,7 @@ public static function loadScriptsFrom(folder:String, outArray:Array<FunkinLua> 
                 else luaArray.push(lua);
             }
         }
-    } catch (e:Dynamic) {
-        trace('[Lua] loadScriptsFrom error: ' + Std.string(e));
-    }
-}
-    } catch (e:Dynamic) {
+    } catch(e:Dynamic) {
         trace('[Lua] loadScriptsFrom error: ' + Std.string(e));
     }
 }
