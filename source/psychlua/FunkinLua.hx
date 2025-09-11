@@ -2046,13 +2046,16 @@ public static var luaArray:Array<FunkinLua> = [];
 public static function loadScriptsFrom(folder:String, outArray:Array<FunkinLua> = null):Void {
     try {
         var folderStr = if (folder.endsWith("/")) folder else folder + "/";
-        var modFolderPath = Paths.modFolders(folderStr);       // mods/... path
-        var sharedFolderPath = Paths.getSharedPath(folderStr); // shared/... fallback
+        var modFolderPath = Paths.modFolders(folderStr);
+        var sharedFolderPath = Paths.getSharedPath(folderStr);
 
         var dir:String = null;
         if (FileSystem.exists(modFolderPath)) dir = modFolderPath;
         else if (FileSystem.exists(sharedFolderPath)) dir = sharedFolderPath;
-        else return; // nothing to load
+        else {
+            trace('[Lua] No folder found for ' + folderStr);
+            return;
+        }
 
         var files:Array<String>;
         #if sys
@@ -2061,15 +2064,23 @@ public static function loadScriptsFrom(folder:String, outArray:Array<FunkinLua> 
         files = [];
         #end
 
+        if (files.length == 0) {
+            trace('[Lua] No scripts in folder: ' + dir);
+        }
+
         for (file in files) {
             if (file.toLowerCase().endsWith(".lua")) {
-                var tryPath = (if (dir.endsWith("/")) dir else dir + "/") + file;
+                var tryPath = (dir.endsWith("/") ? dir : dir + "/") + file;
                 trace('[Lua] Loading state script: ' + tryPath);
                 var lua = new FunkinLua(tryPath);
                 if (outArray != null) outArray.push(lua);
                 else luaArray.push(lua);
             }
         }
+    } catch (e:Dynamic) {
+        trace('[Lua] loadScriptsFrom error: ' + Std.string(e));
+    }
+}t
     } catch (e:Dynamic) {
         trace('[Lua] loadScriptsFrom error: ' + Std.string(e));
     }
