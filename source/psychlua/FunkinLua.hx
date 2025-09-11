@@ -2080,7 +2080,7 @@ public static function loadScriptsFrom(folder:String, outArray:Array<FunkinLua> 
     } catch (e:Dynamic) {
         trace('[Lua] loadScriptsFrom error: ' + Std.string(e));
     }
-}t
+}
     } catch (e:Dynamic) {
         trace('[Lua] loadScriptsFrom error: ' + Std.string(e));
     }
