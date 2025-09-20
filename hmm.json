@@ -66,13 +66,6 @@
       "url": "https://github.com/NovaFlare-Engine-haxelib/modcharts"
     },
     {
-      "name": "hxcpp",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/NovaFlare-Engine-haxelib/hxcpp"
-    },
-    {
       "name": "hxvlc",
       "type": "git",
       "dir": null,
